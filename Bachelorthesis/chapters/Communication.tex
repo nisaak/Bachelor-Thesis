@@ -23,12 +23,44 @@ The physical layer consists of a twisted pair of wires, which can be shielded if
 
 To reduce reflections in the data cables with rates higher than 125kbit/s, it is recommended to terminate the ends of the communication lines with termination resistors with 120 Ohm. 
 
-Each CAN message contains the following structure.
+\newpage
+
+Roughly speaking, a CAN message or frame is made up of an identifier(ID) and the data (up to 8 bytes). A complete CAN message looks like the following.
 %picture and example of can message
 
-Especially the role of the identifier bit is important, as it handles and represents the message priority.
+\begin{tabular}{|c|c|}
+	\hline 
+	\textbf{Name} & \textbf{Length in bits} \\ 
+	\hline 
+	SOF & 1 \\ 
+	\hline 
+	ID & 11 \\ 
+	\hline 
+	RTR & 1 \\ 
+	\hline 
+	ID extension & 1 \\ 
+	\hline 
+	Reserved bit & 1 \\ 
+	\hline 
+	DLC & 4 \\ 
+	\hline 
+	Data & 0-64 \\ 
+	\hline 
+	CRC & 15 \\ 
+	\hline 
+	CRC delimiter & 1 \\ 
+	\hline 
+	ACK slot & 1 \\ 
+	\hline 
+	ACK delimiter & 1 \\ 
+	\hline 
+	EOF & 7 \\ 
+	\hline 
+\end{tabular} 
 
-\pagebreak
+SOF describes the start of the frame, followed by the identifier. The role of the identifier bit is important, as it handles bus management and represents the message priority. The remote transmit request (RTR) must be dominant for data frames and recessive for remote request frames. A remote frame is used to request data transmission from a node. The ID extension and reserved bit are dominant for base frames. The data length code (DLC) informs the receiver about the size of the data in bytes, followed by the actual data. The cyclic redundancy check is used for error detection, with the recessive CRC delimiter coming right after. The acknowledgement slot is used to confirm the message by the receiver by using a dominant bit and the transmitter sends a recessive bit. Again, a recessive delimiter ends the acknowledgement slot. The last 7 bits describe the end of the CAN frame.
+
+\newpage
 
 \section{CANOpen}
 
@@ -76,6 +108,8 @@ So in order to set a desired speed on the right (Node 6) motor controller of aro
 Take note that to translate the desired target input into a bytewise message
 the little endian rule is most often utilized and the hex format is used to display the contents of each byte. According to the little endian rule the byte containing the higher bit values comes second in transmission. 
 The Command speed of the message above is split into two hex numbers yielding the underlying number 384h.
+
+\newpage
 
 Each CAN device has a personal node, ranging from 1 to 127. This ensures that every message reaches it's corresponding device.
 % example of pdo can message
@@ -161,91 +195,7 @@ The standard table of CAN-Id's can be found below.
 
 
 %brief explaination on additional features, their advantages and how they benefited us.
-\subsection{Implementation}
-%explain what commands we used, object dictionary and relevant commands/messages.
 
-
-\subsubsection{ACD}
-
-%write about RPDO1 RPDO2 conflict, our assumptions what if couldve been, namely phyiscal connection, sync messages, overload, messages overlapping etc. solved by disabling rpdo2
-
-In order to communicate with the ACD, the CAN Node-Id of each ACD had to be determined. One of Rimo's pdf files, namely "Setting up ACD Controller \& Connection Diagram", serves exactly this purpose. 
-%refer to appendix witht file.
-To find the respective node-id's, we had to check if either pin 12 (DI5) or pin 20 (DI6) was connected to any other pins on the ACD 4805 K1 connector. In our case, pin 12 of the right ACD was connected to pin 1, making it node 6. Pin 12 of the left ACD was not connected and therefore making it node 5. Afterwards our findings were confirmed when we connected the go-kart to our CAN bus. With the help of a CAN-USB adapter, we were able to receive and send messages, and after a while controlling the kart.
-Because the go-kart does not communicate via CAN by default but only for service and remote control purposes, we had to put all nodes into operational mode by sending a NMT start messages to all nodes, namely node 5 and 6.
-The ID of a NMT message is 0x000, to start the nodes the instruction code 0x01 had to be used. To reach all nodes simultaneously, the node adress needed to be 0x0. 
-
-Issues with CANOpen and dSpace. 
-
-When we tried to control the ACD via CANOpen with the Microautobox, the communication presented itself to be an issue. The wheels were not turning smooth, but rather interrupted from time to time. It was clear that something had to be disrupting the communication.
-With the help of a CAN-USB adapter, we were able to monitor the CAN bus. After checking all physical layers, we came to the conclusion that it must be a software problem. Our first approach was to change synchronisation times. This however did not have any effect, neither did changing the baud rate or adjusting the step size for Matlab's solver.
-A smooth motion of the motors could be realized by sending the Receive PDO manually via the Pcan software. The problem turned out to arise from the second Receive PDO. While the first RPDO determines the target speed for the speed controller the second RPDO provides the possibility to control the motor with target torque. By default, the use of one of the mentioned does not disable the function of the other. This leads to critical failure  causing improper motion if both RPDOs are sent simultaneously. The Motor tries to achieve both, target speed and target torgue ending up rapidly switching the motor current. The problem could be solved by completely removing the second RPDO from the Matlab model. The CANopen blocks do not allow for deactivation of the individual PDO's transmission in real time.
-
-
-We established connection between MABX and a receiver, in our case a laptop connected to the MABX CAN via CAN USB.
-
-
-Two's complement is convenient way to store integers, such that adding and subtracting with negative numbers becomes very easy. This was used on the ACD 4805, where certain values, such as the rotational speed of the wheels, can be negative. 
-The basic principles of two's complement are the following.
-
-- Zero is represented by all 0's. 
-e.g. 0 0 0 0 = 0
-
-- The maximum positive integer is $ 2^{number of bits-1}-1 $.
-So for 4 bits, the biggest integer is therefore 0 1 1 1 = 7, and not 1 1 1 1 = 15 as in the standard notation.
-
-- if the integer is negative, 1's and 0's switch roles, starting from all one's, e.g. 1 1 1 1 = -1. This increases the range for negative numbers by one.
-
-So for 4 bits it looks as follows.
-
-\begin{tabular}{llll}
-0 0 0 0 = 0 & 0 1 0 0 = 4 & 1 1 1 1 = -1 & 1 0 1 1 = -5\\
-0 0 0 1 = 1 & 0 1 0 1 = 5 & 1 1 1 0 = -2 & 1 0 1 0 = -6\\
-0 0 1 0 = 2 & 0 1 1 0 = 6 & 1 1 0 1 = -3 & 1 0 0 1 = -7\\
-0 0 1 1 = 3 & 0 1 1 1 = 7 & 1 1 0 0 = -4 & 1 0 0 0 = -8
-\end{tabular}
-
-So an easy way to find the negative integer of a positive integer is to convert the desired decimal number to binary, inverting all 0's and 1's and then adding 1. A more hands on approach is to again convert to binary, starting from the right to find the first 1 and inverting all bits to the left of it.
-
-So in order to have a rotational speed of -500 revolutions per minute, the following steps have to be taken for a signed 16 bit integer.
-
-500 = 0 0 0 0 \: 0 0 0 1 \: 1 1 1 1 \: 0 1 0 0
-
-Now invert all bits.
-
-1 1 1 1 \: 1 1 1 0 \: 0 0 0 0 \: 1 0 1 1
-
-And add 1
-
-1 1 1 1 \: 1 1 1 0 \: 0 0 0 0 \: 1 1 0 0 = -500
-
-The second method would result in the following steps.
-
-Starting from the right, find first 1.
-
-500 = 0 0 0 0 \: 0 0 0 1 \: 1 1 1 1 \: 0 \textbf{1} 0 0
-
-Invert all consecutive bits to the left of it.
-
-1 1 1 1 \: 1 1 1 0 \: 0 0 0 0 \: 1 \textbf{1} 0 0 = -500
-
-If a signed integer is postive or negative is easy to spot, as it's most significant bit determines if the number is negative or positive. 1 = negative, 0 = positive.
-
-\subsubsection{LinMot}
-important settings
-
-For some reason, TPDO3 and TPDO4 would not transmit their data when a sync message was sent. This was tried to solve by setting the intern event timer to around 10 ms and changing the transmission type to 254. However, after a while it would stop transmitting out of a unknown reason. As time was scarce, we simply remapped the PDOs, such that the needed data would be transmitted via TPDO2. 
-
-%talk about failsafe for brake
-
-Another issues presented itself while working on the brake. Previously we used a motion command called VAI go to position 16bit, which takes velocity, acceleration/deceleration and position as input and creates a curve for the linear motor, which results in the motion. However, a new command will only be executed if the last four bits of the motion command header, called command count, has changed. In the easiest way, bit 0 can be toggled. 
-To avoid this, a different setting could be utilized, called PV Stream. This uses a constant stream of position and velocity inputs during a fixed streaming period, interpolates and executes the command. While this seemed very intriguing, it's implementation was not possible. For some reason an error arose, stating that our streaming was too slow. Even after checking the period time with PCAN and checking all settings, the issue could not be resolved.
-After that, we went back to the prior way of setting the position.
-
-To counteract the need for change in the command count in order for a change in motion we introduced a pulse generator into the Matlab model.
-The pulse generators output is an alternating signal either being zero or one. With the signal from the pulse generator added to the command header, the command count changes every halve period of the pulse generator. With a sufficiently low pulse generator period a function similar to the PV stream could be implemented.
-%%really
-%clock not working as it triggers resets all the time
 
 \section{Matlab Model}
 
@@ -275,5 +225,3 @@ The blocks generated by the general setup block allow for numerous inputs and ou
 
 The following picture shows the multimessage controllersetup block and the node blocks created by the CANOpen general setup block.
 %Bilder
-
-
