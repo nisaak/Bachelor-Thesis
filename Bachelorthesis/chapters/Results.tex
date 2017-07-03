@@ -14,9 +14,7 @@ To find the optimal parameters of the linear motor, we used a simple spring setu
  
 A maximum velocity higher than that leads to the motor shutting down, which is something we certainly wanted to avoid. 
   
-The temperature of the drive rises to critically high temperatures only after maintaining a considerably high force of above 200 N. Since such a force is only required for a very hard brake it should be possible to prevent longer periods of braking with more than 200 N. The following graphs show the winding-temperature change of the motor for different forces exerted on the drive.
-% Graphiken
-Note that the drive overheats in the emergency brake simulation only after x seconds which is much longer than the average duration of an emergency brake.
+The temperature of the drive rises to critically high temperatures only after maintaining a considerably high force of above 200 N. Since such a force is only required for a very hard brake it should be possible to prevent longer periods of braking with more than 200 N. 
 
 \begin{figure}[h]
 	\centering
@@ -60,7 +58,7 @@ In subsequent test we plotted the motors actual position, force and winding temp
 \end{figure}
 
 
-In \cref{fig:oscilloscopeneg36_rot} the oscilloscope recorded 60 seconds of data. This test was done to have a better understanding of how the motor overheats. At around 6 seconds, the motor reaches its demand position of -36 mm. At around the same time, the two windings of the motor start to heat up. The curve can more or less be assumed to be linear. Even after 54 seconds of operational time, the motor does not overheat and winding one still has around 15 °C left until it reaches its error temperature of 150°C. 
+In \cref{fig:oscilloscopeneg36rot} the oscilloscope recorded 60 seconds of data. This test was done to have a better understanding of how the motor overheats. At around 6 seconds, the motor reaches its demand position of -36 mm. At around the same time, the two windings of the motor start to heat up. The curve can more or less be assumed to be linear. Even after 54 seconds of operational time, the motor does not overheat and winding one still has around 15 °C left until it reaches its error temperature of 150°C. 
 
 \begin{figure}
 	\centering
@@ -76,7 +74,7 @@ In \cref{fig:oscilloscopeneg36_rot} the oscilloscope recorded 60 seconds of data
 %	\label{fig:oscilloscopeneg54_rot}
 %\end{figure}
 
-In \cref{fig:oscilloscopeneg54_rot} the oscilloscope was used to record when the motor overheats for a hard brake and how exactly it reacts. For this a demand position of -54 mm was given, however the position will not be reached even with an integrator. This is because the motor's maximum force of around 248 N is reached and the slider can not extend any further. In this plot it is apparent that winding one overheats much quicker than winding two. As soon as 150°C is reached, the motor shuts down and the actual position, as well as the force return to zero. In this state the motor is in an error state and no further commands can be executed. The error needs to be acknowledged and the switch on bit has to be reset. After this procedure, the motor is back in the operational state.
+In \cref{fig:oscilloscopeneg54rot} the oscilloscope was used to record when the motor overheats for a hard brake and how exactly it reacts. For this a demand position of -54 mm was given, however the position will not be reached even with an integrator. This is because the motor's maximum force of around 248 N is reached and the slider can not extend any further. In this plot it is apparent that winding one overheats much quicker than winding two. As soon as 150°C is reached, the motor shuts down and the actual position, as well as the force return to zero. In this state the motor is in an error state and no further commands can be executed. The error needs to be acknowledged and the switch on bit has to be reset. After this procedure, the motor is back in the operational state.
 
 \newpage
 
