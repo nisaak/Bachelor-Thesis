@@ -7,6 +7,19 @@
 
 \section{Implementation Hardware}
 
+\subsection{CAN Bus}
+
+The following figure shows a schematic of the implemented CAN bus.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{pictures_figures/Used/Picture_CANbus}
+	\caption{}
+	\label{CAN bus}
+\end{figure}
+
+The CAN is realized by connecting all hardware nodes with a M12 cable. At both ends of the CAN bus, a 120$\Omega$ is connected to avoid unwanted reflections. The two ACDs are connected internally in Rimos circuit.
+
+
 \subsection{Braking}
 
 Braking presented itself to be the technically most difficult aspect in the drive-by-wire system. The kart offered limited space, therefore a very efficient actuator was needed to ensure the Force necessary for an emergency brake. Early testing showed that for a full brake roughly 250-350 N of force was required. However, this testing was done with the kart jacked up, therefore we could not fully rely on these results.
@@ -30,7 +43,6 @@ The metal sheets were cut by a water jet cutter.
 	\label{fig:picturebrake}
 \end{figure}
 
-
 \subsection{Throttle}
 
 To control the throttle, we had to access the ACD 4805 motor controller of each electric drive. After a simple start up sequence, we were able to control the velocity of each wheel via CANOpen. For throttling, no actuators had to implemented. The crucial work that went into throttle-by-wire part was mainly communication and will therefore be discussed in the following chapter.
@@ -49,6 +61,164 @@ As already mentioned in chapter one, we used a compact power steering unit, with
 \end{figure}
 
 \section{Implementation Communication}
+
+\subsection{RPDO}
+
+The following section will take a closer look at the PDOs used to control the actuators in the CAN network.
+
+Table 1 in chapter 4.2 shows the only RPDO in use for the two ACD motor controllers. The command word filled into the first two bytes is built up by 16 bits. Depending on the bits turned on, the state of the ACD is changed.
+
+\begin{tabular}{|c|c|}
+	\hline 
+	Bit & Description \\ 
+	\hline 
+	&   \\ 
+	\hline 
+	0 &  Switch on (close main contactor if used)\\ 
+	\hline 
+	1 & Speed neutral brake ramp parameter set LSB\\ 
+	\hline 
+	2 & Speed neutral brake ramp parameter set MSB\\ 
+	\hline 
+	3 & Enable power stage\\ 
+	\hline 
+	4 & Speed PI controller parameter set LSB\\
+	\hline
+	5 & Activate Torgue current boost\\
+	\hline
+	6 & Open drain output 1\\
+	\hline
+	7 & Open drain output 2\\
+	\hline
+	8 & Capacitor discharge on\\
+	\hline
+	9 & (speed) Rollback and anti clonk disable\\
+	\hline
+	10 & Activate one quadrant\\
+	\hline
+	11 & Speed ramp parameter set LSB\\
+	\hline
+	12 & Speed ramp parameter set MSB\\
+	\hline
+	13 & Foot brake on\\ 
+	\hline
+	14 & Magnetisation current low on\\
+	\hline
+	15 & BDI magnetisation current pulse enable\\
+	\hline
+\end{tabular} 
+\\
+\\
+\textit{Table 3, Bits in RPDO1 of ACD 4805}
+
+To set the ACDs to operational mode, bit 0 and bit 3 are turned on. To set a target speed, the desired velocity is simply filled into the next two bytes. The bytes for acceleration are left empty since they are not in use for this motion command. 
+
+Linmots two RPDOs look as follows.
+
+\begin{tabular}{|c|c|}
+	\hline 
+	Name & Bit  \\ 
+	\hline 
+	& \\ 
+	\hline 
+	Control Word & 16 \\ 
+	\hline 
+	Motion Wommand Header & 16 \\ 
+	\hline 
+	Target Position & 16 \\ 
+	\hline 
+	Maximal Velocity & 16 \\ 
+	\hline 
+\end{tabular}
+\quad
+\begin{tabular}{|c|c|}
+	\hline 
+	Name & Bit \\ 
+	\hline 
+	&   \\ 
+	\hline 
+	Acceleration & 16 \\ 
+	\hline 
+	Deceleration & 16 \\ 
+	\hline 
+	Empty & 16\\ 
+	\hline 
+	Empty & 16 \\ 
+	\hline 
+\end{tabular}
+\\
+\\
+\textit{Table 4, RPDO1 of Linmot \; \; \; \; \; \;}
+\quad
+\textit{Table 5, RPDO2 of Linmot} 
+
+Similar to The ACDs RPDO, the control word is made up of numerous bits defining the state.
+
+\begin{tabular}{|c|c|}
+	\hline 
+	Bit & Description \\ 
+	\hline 
+	&   \\ 
+	\hline 
+	0 &  Switch On (close main contactor if used)\\ 
+	\hline 
+	1 & Voltage Enable\\ 
+	\hline 
+	2 & Quick Stop\\ 
+	\hline 
+	3 & Enable Operation\\ 
+	\hline 
+	4 & Abort\\
+	\hline
+	5 & Freeze\\
+	\hline
+	6 & Go To Position\\
+	\hline
+	7 & Error Acknoledge\\
+	\hline
+	8 & Jog Move +\\
+	\hline
+	9 & Jog Move -\\
+	\hline
+	10 & Special Mode\\
+	\hline
+	11 & Home\\
+	\hline
+	12 & Clearance Check\\
+	\hline
+	13 & Go To Initial Position\\ 
+	\hline
+	14 & Reserved\\
+	\hline
+	15 & Phase Search\\
+	\hline
+\end{tabular} 
+\\
+\\
+\textit{Table 6, Bits in control word of Linmot}
+
+To set the drive to operational mode, bits zero to five ar turned on.
+To home the drive, bit 11 is turned on additionally. To acknowledge an error, bit seven is turned on instead. To avoid errors, all bytes except the two corresponding to the command word send zeroes until the drive is homed. Following, a motion command can be transmitted by changing the subsequent bytes.
+
+\begin{tabular}{|c|c|}
+	\hline 
+	Bits & Description \\ 
+	\hline 
+	&   \\ 
+	\hline 
+	0 - 3 &  Command Count\\ 
+	\hline 
+	4 - 7 & Sub ID\\ 
+	\hline 
+	8 - 15 & Master ID\\ 
+	\hline 
+\end{tabular} 
+\\
+\\
+\textit{Table 7, Bits in command header of Linmot}
+
+Master and Sub ID define the motion command used. The command in use for the brake is "VAI 16 bit go to pos". Bit 8 and 11 are turned on for this command. Each time a new command should be sent, at least one bit in the command count must change.\
+For the ACDs and Linmot analogously, the bytes transmitting speed and likewise position and acceleration in linmots RPDO set the reference target for the internal controllers. controller parameters must be changed seperately via SDO communication. Further information about the objects used in PDO communication can be found in the object dictionaries.
 
 \subsection{ACD}
 %explain what commands we used, object dictionary and relevant commands/messages.
@@ -118,6 +288,7 @@ Invert all consecutive bits to the left of it.
 If a signed integer is postive or negative is easy to spot, as it's most significant bit determines if the number is negative or positive. 1 = negative, 0 = positive.
 
 \subsection{LinMot}
+
 important settings
 
 For some reason, TPDO3 and TPDO4 would not transmit their data when a sync message was sent. This was tried to solve by setting the intern event timer to around 10 ms and changing the transmission type to 254. However, after a while it would stop transmitting out of a unknown reason. As time was scarce, we simply remapped the PDOs, such that the needed data would be transmitted via TPDO2. 
