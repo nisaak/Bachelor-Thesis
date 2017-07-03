@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2017.5.31)  30 JUN 2017 15:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2017.5.31)  3 JUL 2017 11:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2561,14 +2561,14 @@ Package hyperref Info: Option `pageanchor' set `false' on input line 24.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-<docstyle/logos/eth.pdf, id=131, 854.19125pt x 229.85875pt>
+<docstyle/logos/eth.pdf, id=135, 854.19125pt x 229.85875pt>
 File: docstyle/logos/eth.pdf Graphic file (type pdf)
 
 <use docstyle/logos/eth.pdf>
 Package pdftex.def Info: docstyle/logos/eth.pdf used on input line 24.
 (pdftex.def)             Requested size: 169.16689pt x 45.52458pt.
 
-<docstyle/logos/idsc.pdf, id=132, 745.78625pt x 171.64125pt>
+<docstyle/logos/idsc.pdf, id=136, 745.78625pt x 171.64125pt>
 File: docstyle/logos/idsc.pdf Graphic file (type pdf)
 
 <use docstyle/logos/idsc.pdf>
@@ -2708,20 +2708,20 @@ Chapter 5.
 [15
 
 ]
-<pictures_figures/Used/Picture_brake.jpg, id=287, 3876.4825pt x 2907.86375pt>
+<pictures_figures/Used/Picture_brake.jpg, id=292, 3876.4825pt x 2907.86375pt>
 File: pictures_figures/Used/Picture_brake.jpg Graphic file (type jpg)
 
 <use pictures_figures/Used/Picture_brake.jpg>
 Package pdftex.def Info: pictures_figures/Used/Picture_brake.jpg used on input 
-line 27.
+line 28.
 (pdftex.def)             Requested size: 298.75262pt x 224.07037pt.
  [16 <./pictures_figures/Used/Picture_brake.jpg>]
-<pictures_figures/Used/picture_powersteering.jpg, id=294, 2827.56375pt x 2919.9
+<pictures_figures/Used/picture_powersteering.jpg, id=299, 2827.56375pt x 2919.9
 0875pt>
 File: pictures_figures/Used/picture_powersteering.jpg Graphic file (type jpg)
  <use pictures_figures/Used/picture_powersteering.jpg>
 Package pdftex.def Info: pictures_figures/Used/picture_powersteering.jpg used o
-n input line 45.
+n input line 46.
 (pdftex.def)             Requested size: 298.75262pt x 308.49303pt.
  [17 <./pictures_figures/Used/picture_powersteering.jpg>] [18]) (./chapters/Res
 ults.tex [19]
@@ -2730,38 +2730,49 @@ ults.tex [19]
 ]
 Chapter 6.
 
-<pictures_figures/Used/Picture_linmottest.jpg, id=315, 3110.62125pt x 1513.655p
+<pictures_figures/Used/Picture_linmottest.jpg, id=320, 3110.62125pt x 1513.655p
 t>
 File: pictures_figures/Used/Picture_linmottest.jpg Graphic file (type jpg)
  <use pictures_figures/Used/Picture_linmottest.jpg>
 Package pdftex.def Info: pictures_figures/Used/Picture_linmottest.jpg used on i
-nput line 22.
+nput line 23.
 (pdftex.def)             Requested size: 298.75262pt x 145.36928pt.
  [21
 
  <./pictures_figures/Used/Picture_linmottest.jpg>]
-<pictures_figures/oscilloscope_neg36.png, id=321, 1213.53375pt x 656.4525pt>
-File: pictures_figures/oscilloscope_neg36.png Graphic file (type png)
+<pictures_figures/oscilloscope_neg36_rot.png, id=326, 601.4972pt x 1201.48875pt
+>
+File: pictures_figures/oscilloscope_neg36_rot.png Graphic file (type png)
+ <use pictures_figures/oscilloscope_neg36_rot.png>
+Package pdftex.def Info: pictures_figures/oscilloscope_neg36_rot.png used on in
+put line 57.
+(pdftex.def)             Requested size: 298.75262pt x 596.78294pt.
 
-<use pictures_figures/oscilloscope_neg36.png>
-Package pdftex.def Info: pictures_figures/oscilloscope_neg36.png used on input 
-line 49.
-(pdftex.def)             Requested size: 426.79134pt x 230.87366pt.
- [22 <./pictures_figures/oscilloscope_neg36.png>]
-<pictures_figures/oscilloscope_neg54.png, id=330, 1212.02812pt x 664.73344pt>
-File: pictures_figures/oscilloscope_neg54.png Graphic file (type png)
 
-<use pictures_figures/oscilloscope_neg54.png>
-Package pdftex.def Info: pictures_figures/oscilloscope_neg54.png used on input 
-line 59.
-(pdftex.def)             Requested size: 426.79134pt x 234.07007pt.
- [23 <./pictures_figures/oscilloscope_neg54.png>]) (./chapters/Conclusion.tex [
-24]
+LaTeX Warning: Reference `fig:oscilloscopeneg36_rot' on page 1 undefined on inp
+ut line 63.
+
+
+<pictures_figures/oscilloscope_neg54_rot.png, id=328, 599.99156pt x 1199.98312p
+t>
+File: pictures_figures/oscilloscope_neg54_rot.png Graphic file (type png)
+ <use pictures_figures/oscilloscope_neg54_rot.png>
+Package pdftex.def Info: pictures_figures/oscilloscope_neg54_rot.png used on in
+put line 67.
+(pdftex.def)             Requested size: 298.75262pt x 597.51822pt.
+
+
+LaTeX Warning: Reference `fig:oscilloscopeneg54_rot' on page 1 undefined on inp
+ut line 79.
+
+[22] [23 <./pictures_figures/oscilloscope_neg36_rot.png>] [24 <./pictures_figur
+es/oscilloscope_neg54_rot.png>]) (./chapters/Conclusion.tex [25] [26
+
+]
 Chapter 7.
-) (./chapters/Appendix.tex [25
+) (./chapters/Appendix.tex [27
 
-
-] [26
+] [28
 
 ]
 Chapter 8.
@@ -2770,13 +2781,13 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 1.
-)) (./report.bbl [27
-
-] [28
-
-]) [29
+)) (./report.bbl [29
 
 ] [30
+
+]) [31
+
+] [32
 
 ]
 *geometry* verbose mode - [ newgeometry ] result:
@@ -2820,7 +2831,7 @@ Package pdftex.def Info: docstyle/logos/eth.pdf used on input line 34.
 LaTeX Font Info:    Try loading font information for T1+lmss on input line 34.
  (c:/texlive/2016/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [31
+) [33
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 34.
@@ -2829,13 +2840,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 34.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 34.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 34.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: F2828CE82A861DA5F849FFFAD448C856;2114.
+(rerunfilecheck)             Checksum: E0EE9292779F4DA4A65150FB03BFBFAD;2209.
+
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 52117 strings out of 493013
- 1111494 string characters out of 6136993
+ 52123 strings out of 493013
+ 1111658 string characters out of 6136993
  1298304 words of memory out of 5000000
- 54700 multiletter control sequences out of 15000+600000
+ 54703 multiletter control sequences out of 15000+600000
  93404 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,12n,98p,10353b,2625s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2853,10 +2868,10 @@ ype1/public/lm/lmr7.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/lm/lmri1
 ts/type1/public/lm/lmtt10.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/ma
 thabx-type1/matha10.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/mathabx-
 type1/matha7.pfb>
-Output written on report.pdf (37 pages, 5124579 bytes).
+Output written on report.pdf (39 pages, 5133362 bytes).
 PDF statistics:
- 463 PDF objects out of 1000 (max. 8388607)
- 395 compressed objects within 4 object streams
- 91 named destinations out of 1000 (max. 500000)
- 296 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 475 PDF objects out of 1000 (max. 8388607)
+ 404 compressed objects within 5 object streams
+ 94 named destinations out of 1000 (max. 500000)
+ 304 words of extra memory for PDF output out of 10000 (max. 10000000)
 

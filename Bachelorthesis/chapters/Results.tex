@@ -7,6 +7,7 @@
 
 \section{Testing}
 
+
 \subsection{Linear motor}
 
 To find the optimal parameters of the linear motor, we used a simple spring setup and the LinMot Talk software. With the software, we were able to adjust any motor parameters in real-time, have it perform different moves at various speeds and accelerations. \\On the spring gauge, which was clamped in between the linear motor and the beam, we could read off the force and compare it to the calculated force in LinMot Talk. We found out that the maximum stroke was mostly limited by the maximum velocity. The maximum required stroke of around 55 mm can be reached with a maximum velocity of around 1.5 m/s and maximum acceleration.
@@ -44,24 +45,38 @@ It shall be noted that this test was performed with a driver in the kart at all 
 
 In subsequent test we plotted the motors actual position, force and winding temperature with LinMot Talk's oscilloscope function. The test was done once for a hard brake and once for a soft brake. It is important to note that all data is merely calculated by the LinMot software, and thus does not reflect the actual values perfectly. However it is precise enough to analyse the motor's performance.
 
-\begin{figure}[h]
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1\linewidth]{pictures_figures/oscilloscope_neg36}
+%	\caption{}
+%	\label{fig:oscilloscopeneg36_rot}
+%\end{figure}
+
+\begin{figure}
 	\centering
-	\includegraphics[width=1\linewidth]{pictures_figures/oscilloscope_neg36}
+	\includegraphics[width=0.7\linewidth]{pictures_figures/oscilloscope_neg36_rot}
 	\caption{}
-	\label{fig:oscilloscopeneg36}
+	\label{fig:oscilloscopeneg36rot}
 \end{figure}
 
-In \cref{fig:oscilloscopeneg36} the oscilloscope recorded 60 seconds of data. This test was done to have a better understanding of how the motor overheats. At around 6 seconds, the motor reaches its demand position of -36 mm. At around the same time, the two windings of the motor start to heat up. The curve can more or less be assumed to be linear. Even after 54 seconds of operational time, the motor does not overheat and winding one still has around 15 °C left until it reaches its error temperature of 150°C. 
 
+In \cref{fig:oscilloscopeneg36_rot} the oscilloscope recorded 60 seconds of data. This test was done to have a better understanding of how the motor overheats. At around 6 seconds, the motor reaches its demand position of -36 mm. At around the same time, the two windings of the motor start to heat up. The curve can more or less be assumed to be linear. Even after 54 seconds of operational time, the motor does not overheat and winding one still has around 15 °C left until it reaches its error temperature of 150°C. 
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
-	\includegraphics[width=1\linewidth]{pictures_figures/oscilloscope_neg54}
+	\includegraphics[width=0.7\linewidth]{pictures_figures/oscilloscope_neg54_rot}
 	\caption{}
-	\label{fig:oscilloscopeneg54}
+	\label{fig:oscilloscopeneg54rot}
 \end{figure}
 
-In \cref{fig:oscilloscopeneg54} the oscilloscope was used to record when the motor overheats for a hard brake and how exactly it reacts. For this a demand position of -54 mm was given, however the position will not be reached even with an integrator. This is because the motor's maximum force of around 248 N is reached and the slider can not extend any further. In this plot it is apparent that winding one overheats much quicker than winding two. As soon as 150°C is reached, the motor shuts down and the actual position, as well as the force return to zero. In this state the motor is in an error state and no further commands can be executed. The error needs to be acknowledged and the switch on bit has to be reset. After this procedure, the motor is back in the operational state.
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1\linewidth]{pictures_figures/oscilloscope_neg54}
+%	\caption{}
+%	\label{fig:oscilloscopeneg54_rot}
+%\end{figure}
+
+In \cref{fig:oscilloscopeneg54_rot} the oscilloscope was used to record when the motor overheats for a hard brake and how exactly it reacts. For this a demand position of -54 mm was given, however the position will not be reached even with an integrator. This is because the motor's maximum force of around 248 N is reached and the slider can not extend any further. In this plot it is apparent that winding one overheats much quicker than winding two. As soon as 150°C is reached, the motor shuts down and the actual position, as well as the force return to zero. In this state the motor is in an error state and no further commands can be executed. The error needs to be acknowledged and the switch on bit has to be reset. After this procedure, the motor is back in the operational state.
 
 \newpage
 
