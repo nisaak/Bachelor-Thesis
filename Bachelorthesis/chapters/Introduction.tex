@@ -9,16 +9,20 @@
 %drive by wire, components, idea, motivation, objective
 %many different solutions and approaches possible
 
-%context of project (go more into detail)
-The purpose of this work was to design a drive-by-wire system for future use in the field of autonomous self driving cars. The idea of the overall project is to have a fleet of autonomous vehicles, mainly to test fleet management algorithms. \\%correct??
-To realize this, an electric kart will be modified such that all mechanical inputs normally made by a human driving the cart, can be made by electric actuators. A kart's size and accessibility to it's components make it easy to modify. This go-kart prototype was made as a proof of concept and for early testing of the software and hardware.\\
-%goal and reason for necessity
+\section{Motivation}
+
+Drive-by-wire systems posses the ability to revolutionise the automotive industry. The increase in functionality sparked the interest of many manufacturers and research groups. Drive-by-wire systems also offer a reliable platform for the implementation of driver assistance system or even autonomous self driving systems. The rise in complexity of these systems lead to many approaches and solutions. The basic notion of a drive-by-wire system is to remove any mechanical linkages and replacing them by electric actuators, sensors and control units. While this work does not fully follow this notion, it is still possible to realise a working drive-by-wire system.
+Designing a drive-by-wire system poses many challenges, which can be tackled in many different ways. However, most drive-by-wire vehicles are being conceptualised with safety as their highest priority. This is because those vehicles transport passengers and their well-being is of utmost importance. That is why these system contain many fallback levels, which are rather difficult to realise. Our kart does not contain such fallback levels, simply because its self-driving capabilities are only used on research purposes and the drive-by-wire system will not be active when a human is behind the wheel. 
+
+
+\section{Objective}
 Our objective was to plan and realise a solution for every critical component, i.e. throttle, brake and steering. In order to test A.I. and the fleet management algorithms, a stable and reliable low level platform needs to be in place. Requirements for the individual components in the drive-by-wire system were precision, speed, reliable communication and flexibility. Planing included steps such as finding the parts, how to build it into the kart, communicating with the part and supplying the right amount of power.
-%state of the art (different solutions, challenges,why this work and that not etc.)
 
-Designing a drive-by-wire system poses many challenges, which can be approached in many different ways. Most drive-by-wire vehicles are being conceptualised with safety as their highest priority. This is because those vehicles transport passengers and their well-being is of utmost importance. That is why these system contain many fallback levels, which are rather difficult to realise. Our kart does not contain such fallback levels, simply because its self-driving capabilities are only used on racing tracks and the drive-by-wire system will not be active when a human is behind the wheel. 
+\section{Context}
 
-%shortly describe chapters and their importance,connection, and specific order.
-In chapter 2 and 3 we will give an overview of the hardware and software used in this project. Chapter 4 will focus on the implementation of these parts, i.e. where to install them, challenges and solutions, while chapter 5 covers all aspects of communicating and controlling the devices.\\
+This project provides the required low level platform to run algorithms on and analyse their practicability. The idea of the overall project is to have a fleet of self driving go-karts, in order to test fleet management algorithms.
+
+\section{Structure of this document}
+In chapter 2 and 3 we will give an overview of the hardware and software used in this project. Chapter 4 will focus on the basics of communication and chapter 5 covers all aspects of the implementation of device specific communication and installation.\\
 We will sum up our results in chapter 6. Finally, we will draw our conclusion of this project in chapter 7 and propose future work that can be done on the kart.
 
